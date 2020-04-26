@@ -3,12 +3,12 @@
 		<mat-card-content>
 			<mat-form-field>
 				<mat-label>Rsn</mat-label>
-				<input matInput type="text" placeholder="Durial321" formControlName="rsn">
+				<input matInput type="text" placeholder="Durial321" formControlName="rsn" [errorStateMatcher]="matcher">
 			</mat-form-field>
 
 			<mat-form-field>
 				<mat-label>Ba Progress</mat-label>
-				<mat-select formControlName="progress">
+				<mat-select formControlName="progress" [errorStateMatcher]="matcher">
 					<mat-option *ngFor="let kv of progressValues | keyvalue" [value]="+kv.key">
 						{{kv.value}}
 					</mat-option>
@@ -18,14 +18,14 @@
 
 			<mat-form-field>
 				<mat-label>Enhancer Charges</mat-label>
-				<input matInput type="number" placeholder="0" formControlName="charges">
+				<input matInput type="number" placeholder="0" formControlName="charges" [errorStateMatcher]="matcher">
 			</mat-form-field>
 
 			<mat-checkbox formControlName="ironman">I'm an ironman</mat-checkbox>
 
 			<mat-form-field *ngIf="form.contains('tickets')">
 				<mat-label>Hardmode 10 Tickets</mat-label>
-				<input matInput type="number" placeholder="0" formControlName="tickets">
+				<input matInput type="number" placeholder="0" formControlName="tickets" [errorStateMatcher]="matcher">
 				<mat-hint>If you have saved your ticket(s) we will use them for 6-9s and kings when necessary. Otherwise
 					we
 					might have to do 1-9s first.</mat-hint>
@@ -37,15 +37,15 @@
 		(onExpand)="onExpand('bxp')" (onCollapse)="onCollapse('bxp')" formGroupName="bxp" #bxpPanel>
 		<mat-form-field>
 			<mat-label>Agility</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="agility">
+			<input matInput type="number" placeholder="0" formControlName="agility" [errorStateMatcher]="matcher">
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Firemaking</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="firemaking">
+			<input matInput type="number" placeholder="0" formControlName="firemaking" [errorStateMatcher]="matcher">
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Mining</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="mining">
+			<input matInput type="number" placeholder="0" formControlName="mining" [errorStateMatcher]="matcher">
 		</mat-form-field>
 	</app-panel>
 
@@ -56,7 +56,7 @@
 		(onExpand)="onExpand('lvls')" (onCollapse)="onCollapse('lvls')" formGroupName="lvls" #lvlsPanel>
 		<mat-form-field>
 			<mat-label>Need Attacker Lvl</mat-label>
-			<mat-select formControlName="needAttLvl">
+			<mat-select formControlName="needAttLvl" [errorStateMatcher]="matcher">
 				<mat-option [value]="1">1</mat-option>
 				<mat-option [value]="2">2</mat-option>
 				<mat-option [value]="3">3</mat-option>
@@ -66,7 +66,7 @@
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Need Defender Lvl</mat-label>
-			<mat-select formControlName="needDefLvl">
+			<mat-select formControlName="needDefLvl" [errorStateMatcher]="matcher">
 				<mat-option [value]="1">1</mat-option>
 				<mat-option [value]="2">2</mat-option>
 				<mat-option [value]="3">3</mat-option>
@@ -76,7 +76,7 @@
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Need Collector Lvl</mat-label>
-			<mat-select formControlName="needColLvl">
+			<mat-select formControlName="needColLvl" [errorStateMatcher]="matcher">
 				<mat-option [value]="1">1</mat-option>
 				<mat-option [value]="2">2</mat-option>
 				<mat-option [value]="3">3</mat-option>
@@ -86,7 +86,7 @@
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Need Healer Lvl</mat-label>
-			<mat-select formControlName="needHealLvl">
+			<mat-select formControlName="needHealLvl" [errorStateMatcher]="matcher">
 				<mat-option [value]="1">1</mat-option>
 				<mat-option [value]="2">2</mat-option>
 				<mat-option [value]="3">3</mat-option>
@@ -102,52 +102,52 @@
 		formGroupName="items" #itemsPanel>
 		<mat-form-field>
 			<mat-label>Hats</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="hats">
+			<input matInput type="number" placeholder="0" formControlName="hats" [errorStateMatcher]="matcher">
 			<mat-hint>275 pts in each role + Queen</mat-hint>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Boots</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="boots">
+			<input matInput type="number" placeholder="0" formControlName="boots" [errorStateMatcher]="matcher">
 			<mat-hint>100 pts in each role</mat-hint>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Gloves</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="gloves">
+			<input matInput type="number" placeholder="0" formControlName="gloves" [errorStateMatcher]="matcher">
 			<mat-hint>150 pts in each role</mat-hint>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Torso</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="torso">
+			<input matInput type="number" placeholder="0" formControlName="torso" [errorStateMatcher]="matcher">
 			<mat-hint>375 pts in each role + Queen</mat-hint>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Skirt</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="skirt">
+			<input matInput type="number" placeholder="0" formControlName="skirt" [errorStateMatcher]="matcher">
 			<mat-hint>375 pts in each role + Queen</mat-hint>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Armour Patches</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="armourPatches">
+			<input matInput type="number" placeholder="0" formControlName="armourPatches" [errorStateMatcher]="matcher">
 			<mat-hint>100 pts in any role</mat-hint>
 		</mat-form-field>
 		<mat-form-field *ngIf="!form.value.ironman">
 			<mat-label>Attacker's Insignia</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="attackerInsignia">
+			<input matInput type="number" placeholder="0" formControlName="attackerInsignia" [errorStateMatcher]="matcher">
 			<mat-hint>Lvl 5 + 500 pts + 5 Kings</mat-hint>
 		</mat-form-field>
 		<mat-form-field *ngIf="!form.value.ironman">
 			<mat-label>Defender's Insignia</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="defenderInsignia">
+			<input matInput type="number" placeholder="0" formControlName="defenderInsignia" [errorStateMatcher]="matcher">
 			<mat-hint>Lvl 5 + 500 pts + 5 Kings</mat-hint>
 		</mat-form-field>
 		<mat-form-field *ngIf="!form.value.ironman">
 			<mat-label>Collector's Insignia</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="collectorInsignia">
+			<input matInput type="number" placeholder="0" formControlName="collectorInsignia" [errorStateMatcher]="matcher">
 			<mat-hint>Lvl 5 + 500 pts + 5 Kings</mat-hint>
 		</mat-form-field>
 		<mat-form-field *ngIf="!form.value.ironman">
 			<mat-label>Healer's Insignia</mat-label>
-			<input matInput type="number" placeholder="0" formControlName="healerInsignia">
+			<input matInput type="number" placeholder="0" formControlName="healerInsignia" [errorStateMatcher]="matcher">
 			<mat-hint>Lvl 5 + 500 pts + 5 Kings</mat-hint>
 		</mat-form-field>
 	</app-panel>
@@ -168,25 +168,25 @@
 			<img class="image" *ngIf="showBlackboard" (click)="showBlackboard = false" src="assets/blackboard.png"
 				alt="blackboard.png" />
 
-			<table class="table is-fullwidth">
+			<table class="table is-fullwidth currentPtsTable">
 				<thead>
 					<th>Role</th>
 					<th>Current Points</th>
 					<th>Level</th>
-					<th>Reward next level</th>
-					<th>Points next level</th>
+					<!-- <th>Reward next level</th>
+					<th>Points<br/>next<br/>level</th> -->
 				</thead>
 				<tbody>
 					<tr>
 						<td>Attacker</td>
 						<td>
-							<mat-form-field>
-								<input matInput type="number" formControlName="attackerPts">
+							<mat-form-field class="currentPtsInput">
+								<input matInput type="number" formControlName="attackerPts" [errorStateMatcher]="matcher">
 							</mat-form-field>
 						</td>
 						<td>
-							<mat-form-field>
-								<mat-select formControlName="attackerLvl">
+							<mat-form-field class="currentLvlInput">
+								<mat-select formControlName="attackerLvl" [errorStateMatcher]="matcher">
 									<mat-option [value]="1">1</mat-option>
 									<mat-option [value]="2">2</mat-option>
 									<mat-option [value]="3">3</mat-option>
@@ -195,19 +195,19 @@
 								</mat-select>
 							</mat-form-field>
 						</td>
-						<td>{{rewardNextLvl('attacker')}}</td>
-						<td>{{ptsNextLvl('attacker')}}</td>
+						<!-- <td class="rewardNextLvl">{{rewardNextLvl('attacker')}}</td>
+						<td class="ptsNextLvl">{{ptsNextLvl('attacker')}}</td> -->
 					</tr>
 					<tr>
 						<td>Defender</td>
 						<td>
-							<mat-form-field>
-								<input matInput type="number" formControlName="defenderPts">
+							<mat-form-field class="currentPtsInput">
+								<input matInput type="number" formControlName="defenderPts" [errorStateMatcher]="matcher">
 							</mat-form-field>
 						</td>
 						<td>
-							<mat-form-field>
-								<mat-select formControlName="defenderLvl">
+							<mat-form-field class="currentLvlInput">
+								<mat-select formControlName="defenderLvl" [errorStateMatcher]="matcher">
 									<mat-option [value]="1">1</mat-option>
 									<mat-option [value]="2">2</mat-option>
 									<mat-option [value]="3">3</mat-option>
@@ -216,19 +216,19 @@
 								</mat-select>
 							</mat-form-field>
 						</td>
-						<td>{{rewardNextLvl('defender')}}</td>
-						<td>{{ptsNextLvl('defender')}}</td>
+						<!-- <td class="rewardNextLvl">{{rewardNextLvl('defender')}}</td>
+						<td class="ptsNextLvl">{{ptsNextLvl('defender')}}</td>-->
 					</tr>
 					<tr>
 						<td>Collector</td>
 						<td>
-							<mat-form-field>
-								<input matInput type="number" formControlName="collectorPts">
+							<mat-form-field class="currentPtsInput">
+								<input matInput type="number" formControlName="collectorPts" [errorStateMatcher]="matcher">
 							</mat-form-field>
 						</td>
 						<td>
-							<mat-form-field>
-								<mat-select formControlName="collectorLvl">
+							<mat-form-field class="currentLvlInput">
+								<mat-select formControlName="collectorLvl" [errorStateMatcher]="matcher">
 									<mat-option [value]="1">1</mat-option>
 									<mat-option [value]="2">2</mat-option>
 									<mat-option [value]="3">3</mat-option>
@@ -237,19 +237,19 @@
 								</mat-select>
 							</mat-form-field>
 						</td>
-						<td>{{rewardNextLvl('collector')}}</td>
-						<td>{{ptsNextLvl('collector')}}</td>
+						<!-- <td class="rewardNextLvl">{{rewardNextLvl('collector')}}</td>
+						<td class="ptsNextLvl">{{ptsNextLvl('collector')}}</td>-->
 					</tr>
 					<tr>
 						<td>Healer</td>
 						<td>
-							<mat-form-field>
-								<input matInput type="number" formControlName="healerPts">
+							<mat-form-field class="currentPtsInput">
+								<input matInput type="number" formControlName="healerPts" [errorStateMatcher]="matcher">
 							</mat-form-field>
 						</td>
 						<td>
-							<mat-form-field>
-								<mat-select formControlName="healerLvl">
+							<mat-form-field class="currentLvlInput">
+								<mat-select formControlName="healerLvl" [errorStateMatcher]="matcher">
 									<mat-option [value]="1">1</mat-option>
 									<mat-option [value]="2">2</mat-option>
 									<mat-option [value]="3">3</mat-option>
@@ -258,13 +258,13 @@
 								</mat-select>
 							</mat-form-field>
 						</td>
-						<td>{{rewardNextLvl('healer')}}</td>
-						<td>{{ptsNextLvl('healer')}}</td>
+						<!-- <td class="rewardNextLvl">{{rewardNextLvl('healer')}}</td>
+						<td class="ptsNextLvl">{{ptsNextLvl('healer')}}</td> -->
 					</tr>
 				</tbody>
 			</table>
 
-			And I've killed <mat-form-field><input matInput type="number" formControlName="kings"></mat-form-field>
+			And I've killed <mat-form-field><input matInput type="number" formControlName="kings" [errorStateMatcher]="matcher"></mat-form-field>
 			Kings.
 		</mat-card-content>
 	</mat-card>

@@ -1,13 +1,20 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Subscription, combineLatest, Observable } from 'rxjs';
 import { startWith, distinctUntilChanged, map } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, ErrorStateMatcher } from '@angular/material';
 import { PanelComponent } from '../panel/panel.component';
 import { CenteredSnackbarComponent } from '../centered-snack-bar/centered-snack-bar.component';
 
 declare var process: (o: any) => string;
 declare var wasmReady: Promise<any>;
+
+class ImmediateErrorStateMatcher implements ErrorStateMatcher {
+	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+		const isSubmitted = form && form.submitted;
+		return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+	}
+}
 
 @Component({
 	selector: 'app-calc',
@@ -35,7 +42,7 @@ export class CalcComponent implements OnInit, OnDestroy {
 
 	public form: FormGroup = new FormGroup({
 		rsn: new FormControl('', Validators.required),
-		charges: new FormControl(0),
+		charges: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(500)])),
 		progress: new FormControl(1, Validators.required),
 		ironman: new FormControl(false),
 
@@ -57,12 +64,12 @@ export class CalcComponent implements OnInit, OnDestroy {
 		}),
 
 		items: new FormGroup({
-			hats: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(4)])),
-			boots: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(1)])),
-			gloves: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(1)])),
-			torso: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(1)])),
-			skirt: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(1)])),
-			armourPatches: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(4)])),
+			hats: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(8)])),
+			boots: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(2)])),
+			gloves: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(2)])),
+			torso: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(2)])),
+			skirt: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(2)])),
+			armourPatches: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(8)])),
 			attackerInsignia: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(1)])),
 			defenderInsignia: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(1)])),
 			healerInsignia: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(1)])),
@@ -70,16 +77,16 @@ export class CalcComponent implements OnInit, OnDestroy {
 		}),
 
 		has: new FormGroup({
-			attackerPts: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(5000)])),
+			attackerPts: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(15000)])),
 			attackerLvl: new FormControl(1, Validators.compose([Validators.min(1), Validators.max(5)])),
-			defenderPts: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(5000)])),
+			defenderPts: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(15000)])),
 			defenderLvl: new FormControl(1, Validators.compose([Validators.min(1), Validators.max(5)])),
-			collectorPts: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(5000)])),
+			collectorPts: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(15000)])),
 			collectorLvl: new FormControl(1, Validators.compose([Validators.min(1), Validators.max(5)])),
-			healerPts: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(5000)])),
+			healerPts: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(15000)])),
 			healerLvl: new FormControl(1, Validators.compose([Validators.min(1), Validators.max(5)])),
 
-			kings: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(50)])),
+			kings: new FormControl(0, Validators.compose([Validators.min(0), Validators.max(500)])),
 		}),
 	});
 
@@ -262,7 +269,7 @@ export class CalcComponent implements OnInit, OnDestroy {
 				acc.price += (v.priceDur.price || 0) * v.count;
 				acc.dur += (v.priceDur.dur || 0) * v.count;
 				return acc;
-			}, {price: 0, dur: 0})
+			}, { price: 0, dur: 0 })
 		})
 	)
 
@@ -296,6 +303,8 @@ export class CalcComponent implements OnInit, OnDestroy {
 			{ next: '- Mastered -', pts: '---' },
 		],
 	}
+
+	public matcher = new ImmediateErrorStateMatcher();
 
 	constructor(private snackBar: MatSnackBar) { }
 
